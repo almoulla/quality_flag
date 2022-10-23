@@ -48,6 +48,6 @@ Here, JDN = 58000 is used as an example.
 
 ## References
 
-Collier Cameron, A., Mortier, A., Phillips, D., et al. (2019), MNRAS, 487, 1082, DOI:[10.1093/mnras/stz1215](https://doi.org/10.1093/mnras/stz1215)
+Collier Cameron, A., Mortier, A., Phillips, D., et al. 2019, MNRAS, 487, 1082, DOI:[10.1093/mnras/stz1215](https://doi.org/10.1093/mnras/stz1215)
 
 Foreman-Mackey, D. 2014, Blog Post: Mixture Models, Zenodo, DOI:[10.5281/zenodo.15856](https://doi.org/10.5281/zenodo.15856)
