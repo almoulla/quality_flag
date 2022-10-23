@@ -37,12 +37,12 @@ file_out2 = f'{targ}_{inst}_mcmcpara' # output file name: MCMC parameters
 - If the script is called **without** any system arguments, all days found in the input file will be analyzed:
 
 ```
-python qualflag.py
+python quality_flag.py
 ```
 
 - If the script is called **with** a Julian Date Number (JDN), defined as INT[JD - 2,400,000 + 0.5], only points on that day will be analyzed:
 ```
-python qualflag.py 58000
+python quality_flag.py 58000
 ```
 Here, JDN = 58000 is used as an example.
 
