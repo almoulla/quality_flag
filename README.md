@@ -1,6 +1,6 @@
 # Quality Flag
 
-Quality flag of spectroscopic solar observations used to identify points taken during poor weather conditions. Derived by fitting a line to the daily airmass-magntiude relation with a Markov Chain Monte Carlo (MCMC) approach.
+Quality flag of spectroscopic solar observations used to identify points taken during poor weather conditions. Derived by fitting a line to the daily airmass-magnitude relation with a Markov Chain Monte Carlo (MCMC) approach.
 
 Based on a mixture model by Foreman-Mackey (2014), and adapted from the methodology of Collier Cameron et al. (2019) who already applied the model on HARPS-N data.
 
