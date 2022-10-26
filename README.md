@@ -25,9 +25,9 @@ TZ        = -4                            # time zone w.r.t. UT
 path_in   = ''                            #  input path
 path_out  = ''                            # output path
 path_fig  = ''                            # figure path
-file_in   = f'{targ}_{inst}.rdb'          #  input file name
-file_out1 = f'{targ}_{inst}_qualflag.rdb' # output file name: quality flags
-file_out2 = f'{targ}_{inst}_mcmcpara.rdb' # output file name: MCMC parameters
+file_in   = f'{targ}_{inst}.csv'          #  input file name
+file_out1 = f'{targ}_{inst}_qualflag.csv' # output file name: quality flags
+file_out2 = f'{targ}_{inst}_mcmcpara.csv' # output file name: MCMC parameters
 
 ...
 ```
