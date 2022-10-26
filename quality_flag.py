@@ -36,12 +36,12 @@ TZ        = -4                            # time zone w.r.t. UT
 path_in   = ''                            #  input path
 path_out  = ''                            # output path
 path_fig  = ''                            # figure path
-file_in   = f'{targ}_{inst}.rdb'          #  input file name
-file_out1 = f'{targ}_{inst}_qualflag.rdb' # output file name: quality flags
-file_out2 = f'{targ}_{inst}_mcmcpara.rdb' # output file name: MCMC parameters
+file_in   = f'{targ}_{inst}.csv'          #  input file name
+file_out1 = f'{targ}_{inst}_qualflag.csv' # output file name: quality flags
+file_out2 = f'{targ}_{inst}_mcmcpara.csv' # output file name: MCMC parameters
 
 # Input DataFrame
-df_all = pd.read_csv(path_in+file_in, sep='\t')
+df_all = pd.read_csv(path_in+file_in, sep=',')
 
 # Column names of expected variables
 col_jdb      = 'jdb'     # Julian Date Barycentric (JDB)
@@ -71,11 +71,11 @@ plot_figures = True # plot and save figures
 
 # If the script is called w/out any system arguments, all days found in the input file will be analyzed
 try:
-    jdn_i = int(sys.argv[1:][0])
+    jdni = int(sys.argv[1:][0])
 
 # If the script is called w/ a JDN, only points on that day will be analyzed
 except:
-    jdn_i = None
+    jdni = None
 
 ### ----------------------------------------------------------
 ### FIGURES
@@ -372,18 +372,20 @@ df_day['Q'     ] = np.empty(df_day.shape[0])*np.nan
 ### ----------------------------------------------------------
 ### MCMC
 
-# If only 1 day selected, modify array to only include that day
-if jdn_i is not None:
-    jdn_arr = np.array([jdn_i])
+# If only 1 day selected, modify looped array to only include that day
+if jdni is not None:
+    jdns = np.array([jdni])
+else:
+    jdns = jdn_arr
 
 # Loop through days
-for jdn_i in jdn_arr:
+for jdni in jdns:
 
     # All index
-    i_all = df_all[col_jdb][df_all[col_jdn] == jdn_i].index
+    i_all = df_all[col_jdb][df_all[col_jdn] == jdni].index
 
     # Day index
-    i_day  = np.where(jdn_arr == jdn_i)[0]
+    i_day  = np.where(jdn_arr == jdni)[0]
     if len(i_day) > 0: i_day = i_day[0]
 
     # Outlier clipping
@@ -392,7 +394,7 @@ for jdn_i in jdn_arr:
         df_all.in_snr [i_all] = iqr_clip(df_all[col_snr ][i_all], low=True)
 
     # Skip MCMC if day has too few points
-    xser = df_all[col_airm][(df_all[col_jdn] == jdn_i) & df_all.in_vrad & df_all.in_snr]
+    xser = df_all[col_airm][(df_all[col_jdn] == jdni) & df_all.in_vrad & df_all.in_snr]
     if xser.size < min_pnt: continue
     
     # Data points
@@ -470,7 +472,8 @@ for jdn_i in jdn_arr:
         fig = plot_mcmc([chain_b1, chain_b2, chain_p],
                         [cname_b1, cname_b2, cname_p])
         plt.tight_layout()
-        plt.savefig(path_fig+fig_name(jdn_i,1))
+        plt.savefig(path_fig+fig_name(jdni,1))
+        plt.close(fig)
     
     if plot_figures & df_day.in_day[i_day]:
         
@@ -480,7 +483,7 @@ for jdn_i in jdn_arr:
         gsg_int = gridspec.GridSpecFromSubplotSpec(2, 2, subplot_spec=gsg_ext[0], hspace=0, wspace=0)
         
         # Data
-        qual     = df_all.qualflag[(df_all[col_jdn] == jdn_i) & df_all.in_vrad & df_all.in_snr]
+        qual     = df_all.qualflag[(df_all[col_jdn] == jdni) & df_all.in_vrad & df_all.in_snr]
         hang     = df_all[col_hang    ][qual.index]
         airm     = df_all[col_airm    ][qual.index]
         magn     = df_all[col_magn    ][qual.index]
@@ -572,17 +575,18 @@ for jdn_i in jdn_arr:
         
         # SAVE FIGURE
         fig.tight_layout()
-        plt.savefig(path_fig+fig_name(jdn_i,2))
+        plt.savefig(path_fig+fig_name(jdni,2))
+        plt.close(fig)
 
 ### ----------------------------------------------------------
 ### SAVE
 
     # If only 1 day selected, save file w/ only that day
-    if save_outputs & (len(jdn_arr) == 1):
-        df_all[df_all[col_jdn] == jdn_i].to_csv(path_out+file_out1.split('.')[0]+f'_{jdn_i}.'+file_out1.split('.')[1], sep='\t', index=False)
-        df_day[df_day[col_jdn] == jdn_i].to_csv(path_out+file_out2.split('.')[0]+f'_{jdn_i}.'+file_out2.split('.')[1], sep='\t', index=False)
+    if save_outputs & (len(jdns) == 1):
+        df_all[df_all[col_jdn] == jdni].to_csv(path_out+file_out1.split('.')[0]+f'_{jdni}.'+file_out1.split('.')[1], sep=',', index=False)
+        df_day[df_day[col_jdn] == jdni].to_csv(path_out+file_out2.split('.')[0]+f'_{jdni}.'+file_out2.split('.')[1], sep=',', index=False)
 
 # If all days selected, save file w/ all days
-if save_outputs & (len(jdn_arr) > 1):
-    df_all.to_csv(path_out+file_out1, sep='\t', index=False)
-    df_day.to_csv(path_out+file_out2, sep='\t', index=False)
+if save_outputs & (len(jdns) > 1):
+    df_all.to_csv(path_out+file_out1, sep=',', index=False)
+    df_day.to_csv(path_out+file_out2, sep=',', index=False)
