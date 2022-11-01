@@ -1,6 +1,6 @@
 """
 AUTHOR : Khaled Al Moulla
-DATE   : 2022-10-23
+DATE   : 2022-11-01
 
 Quality flag of spectroscopic solar observations used to identify points taken during poor weather conditions.
 Derived by fitting a line to the daily airmass-magnitude relation with a Markov Chain Monte Carlo (MCMC) approach.
@@ -520,7 +520,7 @@ for jdni in jdns:
         ax00.set_xlim(xlim)
         
         # y-axis
-        ax00.set_ylabel('$m_{60}$')
+        ax00.set_ylabel('$m$ [mag]')
         ax00.invert_yaxis()
         
         # Legend
