@@ -51,7 +51,7 @@ col_airm     = 'airmass' # airmass
 col_snr      = 'sn60'    # signal-to-noise ratio (SNR)
 
 # Column names of computed variables
-col_jdn      = 'jdn'     # Julian Date Number (JDN)
+col_jdn      = 'jdn'     # Julian Day Number (JDN)
 col_hang     = 'hang'    # hour angle
 col_magn     = 'mag60'   # magnitude
 col_magn_err = 'smag60'  # magnitude error
@@ -67,7 +67,7 @@ plot_figures = True # plot and save figures
 ### ----------------------------------------------------------
 ### INPUT
 
-# One Julian Date Number (JDN), defined as INT[JD - 2,400,000 + 0.5], can be given as a system argument.
+# One modified Julian Day Number (JDN), defined as INT[JD - 2,400,000 + 0.5], can be given as a system argument.
 
 # If the script is called w/out any system arguments, all days found in the input file will be analyzed
 try:
