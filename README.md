@@ -40,7 +40,7 @@ file_out2 = f'{targ}_{inst}_mcmcpara.csv' # output file name: MCMC parameters
 python quality_flag.py
 ```
 
-- If the script is called **with** a Julian Date Number (JDN), defined as INT[JD - 2,400,000 + 0.5], only points on that day will be analyzed:
+- If the script is called **with** a modified Julian Day Number (JDN), defined as INT[JD - 2,400,000 + 0.5], only points on that day will be analyzed:
 ```
 python quality_flag.py 58000
 ```
